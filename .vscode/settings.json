@@ -1,0 +1,9 @@
+{
+    "rust-analyzer.linkedProjects": [
+        "verilog_types/Cargo.toml",
+        "dff/Cargo.toml",
+        "axis_fifo/Cargo.toml",
+        "concurrent_assertions/Cargo.toml",
+        "rstb/Cargo.toml",
+    ]
+}
