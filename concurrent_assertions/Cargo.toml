@@ -11,9 +11,6 @@ crate-type = ["cdylib"]
 
 [dependencies]
 rstb = {path = "../rstb"}
-futures = "*"
-lazy_mut = "*"
-rand = "*"
 
 [profile.release]
 opt-level = 3

@@ -10,7 +10,6 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-# rstb = {git = "https://github.com/benbr8/rstb.git", branch = "main"}
 rstb = {path = "../rstb"}
 
 [profile.release]

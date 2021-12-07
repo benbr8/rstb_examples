@@ -372,9 +372,6 @@ dependencies = [
 name = "rstb_test"
 version = "0.1.0"
 dependencies = [
- "futures",
- "lazy_mut",
- "rand 0.8.4",
  "rstb",
 ]
 
