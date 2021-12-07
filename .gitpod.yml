@@ -6,7 +6,8 @@ tasks:
       sudo apt update ;
       sudo apt install iverilog ;
       pip3 install cocotb ;
-      export COCOTB_REDUCED_LOG_FMT=1 
+      export COCOTB_REDUCED_LOG_FMT=1 ;
+      git submodule update --init
     init: >
       cd /workspace/rstb_examples/axis_fifo &&
       gp open hdl/axis_fifo.v &&
