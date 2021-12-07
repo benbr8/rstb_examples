@@ -21,7 +21,7 @@ class MemModel:
 
             raddr = int(self.dut.raddr)
             data = self.mem[raddr]
-            self.dut.dout <= data
+            self.dut.dout.value = data
             if int(self.dut.we) == 1:
                 waddr = int(self.dut.waddr)
                 data = int(self.dut.din)
@@ -123,18 +123,18 @@ async def clock(clk, time_ns):
 
 
 async def rd_stim(clk, rd):
-    rd <= 0
+    rd.value = 0
     while True:
         await RisingEdge(clk)
         if random.random() < 0.5:
-            rd <= 1
+            rd.value = 1
         else:
-            rd <= 0
+            rd.value = 0
 
 async def reset(dut):
     dut.rst.value = 1
-    dut.s_tvalid <= 0
-    dut.m_tready <= 0
+    dut.s_tvalid.value = 0
+    dut.m_tready.value = 0
     for _ in range(10):
         await RisingEdge(dut.clk)
     dut.rst.value = 0
@@ -154,11 +154,11 @@ async def default(dut):
     for i in range(100_000):
         await RisingEdge(dut.clk)
         if random.random() < 0.5:
-            dut.s_tdata <= i
-            dut.s_tvalid <= 1
+            dut.s_tdata.value = i % 2**8
+            dut.s_tvalid.value = 1
         else:
-            dut.s_tvalid <= 0
-    dut.s_tvalid <= 0
+            dut.s_tvalid.value = 0
+    dut.s_tvalid.value = 0
 
     await Timer(1, "us")
 
