@@ -9,12 +9,12 @@ tasks:
       export COCOTB_REDUCED_LOG_FMT=1 ;
       git submodule update --init
     init: >
-      cd /workspace/rstb_examples/axis_fifo &&
+      cd /workspace/rstb_examples/test_axis_fifo &&
       gp open hdl/axis_fifo.v &&
       gp open src/tb.rs &&
       gp open src/lib.rs
     command: >
-      cd /workspace/rstb_examples/axis_fifo ;
+      cd /workspace/rstb_examples/test_axis_fifo ;
       cargo build --release ;
       echo "build & run Rstb test with './run_icarus.sh'" ;
       echo "run identical Cocotb test with 'make'"

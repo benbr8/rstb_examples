@@ -1,5 +1,5 @@
 [package]
-name = "rstb_fifo"
+name = "test_axis_fifo"
 version = "0.1.0"
 authors = ["benbr8"]
 edition = "2021"

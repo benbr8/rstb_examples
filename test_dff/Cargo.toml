@@ -1,5 +1,5 @@
 [package]
-name = "rstb_test"
+name = "test_dff"
 version = "0.1.0"
 authors = ["benbr8"]
 edition = "2018"

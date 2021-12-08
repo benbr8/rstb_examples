@@ -369,13 +369,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "rstb_test"
-version = "0.1.0"
-dependencies = [
- "rstb",
-]
-
-[[package]]
 name = "seahash"
 version = "3.0.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -396,6 +389,13 @@ dependencies = [
  "proc-macro2",
  "quote",
  "unicode-xid",
+]
+
+[[package]]
+name = "test_verilog_types"
+version = "0.1.0"
+dependencies = [
+ "rstb",
 ]
 
 [[package]]
