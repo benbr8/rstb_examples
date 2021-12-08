@@ -10,12 +10,12 @@ tasks:
       git submodule update --init
     init: >
       cd /workspace/rstb_examples/test_axis_fifo &&
+      cargo build --release
+    command: >
+      cd /workspace/rstb_examples/test_axis_fifo &&
       gp open hdl/axis_fifo.v &&
       gp open src/tb.rs &&
-      gp open src/lib.rs
-    command: >
-      cd /workspace/rstb_examples/test_axis_fifo ;
-      cargo build --release ;
+      gp open src/lib.rs ;
       echo "build & run Rstb test with './run_icarus.sh'" ;
       echo "run identical Cocotb test with 'make'"
 
