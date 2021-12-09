@@ -1,0 +1,7 @@
+[test]
+toplevel = "dut"
+
+[src]
+verilog = [
+    "hdl/dut.sv"
+]

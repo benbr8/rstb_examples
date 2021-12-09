@@ -1,0 +1,7 @@
+[test]
+toplevel = "dff"
+
+[src]
+verilog = [
+    "hdl/dff.v"
+]
