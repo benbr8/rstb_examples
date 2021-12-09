@@ -1,0 +1,9 @@
+[test]
+toplevel = "axis_fifo"
+
+[src]
+verilog = [
+    "hdl/dpram.v",
+    "hdl/fifo_fwft.v",
+    "hdl/axis_fifo.v"
+]
