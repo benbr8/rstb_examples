@@ -1,6 +1,6 @@
 #![allow(unreachable_code)]
-use rstb::prelude::*;
-use rstb::vpi;
+use librstb::prelude::*;
+use librstb::vpi;
 
 async fn test_default(dut: SimObject) -> RstbResult {
     SIM_IF.log("Starting test");
@@ -132,4 +132,4 @@ fn print_obj(handle: usize) {
     ));
 }
 
-rstb::run_with_vpi!(test_default);
+librstb::run_with_vpi!(test_default);

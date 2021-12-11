@@ -1,6 +1,6 @@
 #![allow(unreachable_code, unused_must_use)]
 
-use rstb::prelude::*;
+use librstb::prelude::*;
 use testbench::{Monitor, Scoreboard};
 
 #[derive(Clone)]

@@ -1,5 +1,5 @@
 #![allow(unreachable_code, unused_must_use)]
-use rstb::prelude::*;
+use librstb::prelude::*;
 
 async fn test_default(dut: SimObject) -> RstbResult {
     let clk = dut.c("clk");
@@ -18,7 +18,7 @@ async fn test_default(dut: SimObject) -> RstbResult {
     Ok(Val::None)
 }
 
-rstb::run_with_vpi!(assertion_setup, test_default);
+librstb::run_with_vpi!(assertion_setup, test_default);
 
 
 

@@ -1,7 +1,7 @@
 #![allow(unreachable_code, dead_code, unused_must_use)]
 mod tb_utils;
 
-use rstb::prelude::*;
+use librstb::prelude::*;
 
 async fn clk_stim(clk: SimObject, period_ns: u64) -> RstbResult {
     loop {
@@ -31,5 +31,5 @@ async fn test_dff(dut: SimObject) -> RstbResult {
 }
 
 // Specify tests to be executed
-rstb::run_with_vpi!(test_dff);
+librstb::run_with_vpi!(test_dff);
 

@@ -1,13 +1,12 @@
 **/target
 **/.hdl_checker
 **/.sim_build
+**/.rstb_build
 **/sim_build
 /run_*.sh
 *.vstf
 results.xml
 __pycache__
-
-
 
 # questa
 */work

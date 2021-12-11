@@ -1,7 +1,7 @@
 #![allow(unreachable_code, unused_must_use, dead_code)]
 mod tb;
 
-use rstb::prelude::*;
+use librstb::prelude::*;
 
 
 async fn rd_en(dut: SimObject) -> RstbResult {
@@ -55,8 +55,8 @@ pub async fn test_fifo(dut: SimObject) -> RstbResult {
 }
 
 // Specify tests to be executed
-// rstb::run_with_vpi!(test_fifo);
-rstb::run_with_vpi!(assertion_setup, test_fifo);
+// librstb::run_with_vpi!(test_fifo);
+librstb::run_with_vpi!(assertion_setup, test_fifo);
 
 
 async fn assertion_setup(dut: SimObject) -> RstbResult {
