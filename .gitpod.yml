@@ -7,7 +7,8 @@ tasks:
       sudo apt install iverilog ;
       pip3 install cocotb ;
       export COCOTB_REDUCED_LOG_FMT=1 ;
-      git submodule update --init
+      git submodule update --init ;
+      cargo install rstbrun
     init: >
       cd /workspace/rstb_examples/test_axis_fifo &&
       cargo build --release
@@ -16,7 +17,7 @@ tasks:
       gp open hdl/axis_fifo.v &&
       gp open src/tb.rs &&
       gp open src/lib.rs ;
-      echo "build & run Rstb test with './run_icarus.sh'" ;
+      echo "build & run Rstb test 'rstbrun .'" ;
       echo "run identical Cocotb test with 'make'"
 
 # https://www.gitpod.io/docs/config-ports/
