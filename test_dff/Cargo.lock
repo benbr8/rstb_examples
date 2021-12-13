@@ -356,8 +356,6 @@ checksum = "f98a04dce437184842841303488f70d0188c5f51437d2a834dc097eafa909a01"
 [[package]]
 name = "librstb"
 version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "11e08a9c5443be5003c8cbeba59a3e4738ef7466135193e3630d42c73a641bee"
 dependencies = [
  "fasthash",
  "futures",

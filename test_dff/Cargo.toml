@@ -10,7 +10,7 @@ edition = "2018"
 crate-type = ["cdylib"]
 
 [dependencies]
-librstb = "*"
+librstb = {path = "../rstb"}
 
 [profile.release]
 opt-level = 3

@@ -1,0 +1,3 @@
+[submodule "rstb"]
+	path = rstb
+	url = ./rstb/
