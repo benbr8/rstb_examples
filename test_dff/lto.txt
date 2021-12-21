@@ -1,0 +1,3 @@
+with type=staticlib
+
+RUSTFLAGS="-C linker_plugin_lto -C linker=clang -Clink-arg=-fuse-ld=lld" cargo build --release

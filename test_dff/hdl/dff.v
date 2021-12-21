@@ -1,10 +1,10 @@
 `timescale 1ps/1ps
 
 module dff (
-   input d,
-   input rstn,
-   input clk,
-   output reg q
+   input d /* verilator public */,
+   input rstn /* verilator public */,
+   input clk /* verilator public */,
+   output reg q /* verilator public */
 );
 
    always @ (posedge clk)
