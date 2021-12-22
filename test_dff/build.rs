@@ -19,6 +19,10 @@ fn main() {
         .allowlist_function("vl_init")
         .allowlist_function("vl_finalize")
         .allowlist_function("get_signal_by_name")
+        .allowlist_function("vl_get_root_handle")
+        .allowlist_function("vl_got_finish")
+        .allowlist_function("vl_get_time")
+        .allowlist_function("vl_set_time")
         .generate()
         .unwrap();
     bindings.write_to_file(&format!("{}/src/vdff.rs", manifest_dir)).unwrap();

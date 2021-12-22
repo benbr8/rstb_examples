@@ -2,10 +2,7 @@
 #include <verilated_vpi.h> // Defines common routines
 #include <iostream> // Need std::cout
 #include "Vdff.h" // From Verilating "top.v"
-
-
-
-extern "C" void vpi_entry_point(void);
+#include <stdint.h>
 
 
 Vdff *dut = nullptr;
@@ -20,6 +17,17 @@ void print_var(VerilatedVar* var) {
         << (int)var->vltype() << ':'
         << "end"
         << std::endl;
+}
+
+extern "C" uintptr_t vl_get_root_handle() {
+    const VerilatedScope* scopep = Verilated::threadContextp()->scopeFind("TOP.dff");
+    // std::cout << "c1" << std::endl;
+    // std::cout << (scopep == nullptr ) << std::endl;
+    // std::cout << "c2" << std::endl;
+    // std::cout << scopep->name() << ":" << scopep->identifier() << ":" << (int)scopep->type() << std::endl;
+    
+    // std::cout << "c2" << std::endl;
+    return reinterpret_cast<uintptr_t>(scopep);
 }
 
 extern "C" void get_signal_by_name(void) {
@@ -41,17 +49,17 @@ extern "C" void get_signal_by_name(void) {
                 << ':'
                 << it->second   // string's value 
                 << ':'
-                << (int)it->second->type()
+                << (int)it->second->type() // 0: Module, 1: Other
                 << std::endl;
 
         const VerilatedScope* ScopeP = it->second;
+        std::cout << ScopeP->name() << std::endl;
         auto VarsP = ScopeP->varsp();
-        for (auto it = VarsP->begin(); it != VarsP->end(); it++) {
-            std::cout << it->first << ':';
-            print_var(&it->second);
-        }
+        // for (auto it = VarsP->begin(); it != VarsP->end(); it++) {
+        //     std::cout << it->first << ':';
+        //     print_var(&it->second);
+        // }
     }
-
 }
 
 vluint64_t main_time = 0; // Current simulation time
@@ -69,9 +77,25 @@ extern "C" void vl_init() {
     dut = new Vdff; // Create model
 }
 
+extern "C" void vl_eval() {
+    dut->eval();
+}
+
 extern "C" void vl_finalize() {
     dut->final();
     delete dut;
+}
+
+extern "C" bool vl_got_finish() {
+    return Verilated::gotFinish();
+}
+
+extern "C" unsigned long vl_get_time() {
+    return main_time;
+}
+
+extern "C" void vl_set_time(unsigned long t) {
+    main_time = t;
 }
 
 // int main(int argc, char** argv) {
