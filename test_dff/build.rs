@@ -6,15 +6,15 @@ fn main() {
     dbg!(&manifest_dir);
     println!("cargo:rustc-link-search={}/verilator", manifest_dir);
     println!("cargo:rustc-link-search=/usr/local/share/verilator/include");
-    println!("cargo:rustc-link-lib=static=dff");
-    println!("cargo:rustc-link-lib=static=vl");
+    println!("cargo:rustc-link-lib=static=wrapper");
+    println!("cargo:rustc-link-lib=static=dut");
 
     
     let bindings = bindgen::Builder::default()
-        .header("verilator/dff.cpp")
+        .header("verilator/wrapper.cpp")
         .clang_arg("-I/usr/local/share/verilator/include")
         .clang_arg("-I/usr/local/share/verilator/include/vltstd")
-        .clang_arg("-Iverilator/dff_obj")
+        .clang_arg("-Iverilator/vl_obj")
         .clang_arg("-x").clang_arg("c++")
         .allowlist_function("vl_init")
         .allowlist_function("vl_finalize")
@@ -23,6 +23,7 @@ fn main() {
         .allowlist_function("vl_got_finish")
         .allowlist_function("vl_get_time")
         .allowlist_function("vl_set_time")
+        .allowlist_function("vl_print_scope")
         .generate()
         .unwrap();
     bindings.write_to_file(&format!("{}/src/vdff.rs", manifest_dir)).unwrap();

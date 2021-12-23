@@ -3,10 +3,10 @@ mod vdff;
 use librstb::prelude::*;
 
 
-async fn test() -> RstbResult {
+async fn test(_dut: SimObject) -> RstbResult {
     for j in 0..10 {
-        dbg!(SIM_IF.get_sim_time_steps());
         Trigger::timer_steps(1).await;
+        dbg!(SIM_IF.get_sim_time_steps());
     }
     
     Ok(Val::None)
