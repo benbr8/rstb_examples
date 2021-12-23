@@ -10,7 +10,8 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-librstb = "*"
+# librstb = "*"
+librstb = {path = "../rstb"}
 
 [profile.release]
 opt-level = 3

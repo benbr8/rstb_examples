@@ -25,7 +25,7 @@ const VerilatedScope* get_root_scope() {
     return ret;
 }
 
-extern "C" uintptr_t vl_get_scope_handle_by_name(const char* name) {
+extern "C" uintptr_t vl_get_scope_by_name(const char* name) {
     const VerilatedScope* scopep = Verilated::threadContextp()->scopeFind(name);
     return reinterpret_cast<uintptr_t>(scopep);
 }
@@ -34,7 +34,7 @@ extern "C" const char* vl_get_root_scope_name() {
     return get_root_scope()->name();
 }
 
-extern "C" uintptr_t vl_get_root_scope_handle() {
+extern "C" uintptr_t vl_get_root_scope() {
     return reinterpret_cast<uintptr_t>(get_root_scope());
 }
 
@@ -69,16 +69,77 @@ extern "C" void vl_print_scopes() {
  */
 
 void print_var(VerilatedVar* var) {
-    
-    std::cout << var->name() << ':'
-        << var->datap() << ':'
-        << var->isPublicRW() << ':'
-        << var->low(0) << ':'
-        << var->high(0) << ':'
-        << (int)var->vltype() << ':'
-        << "end"
-        << std::endl;
+    std::cout << "Name: " << var->name() << std::endl;
+    std::cout << "  Type: " << (int)var->vltype() << std::endl;
+    std::cout << "  Dims: " << var->dims() << std::endl;
+    std::cout << "  Elems0: " << var->elements(0) << std::endl;
+    std::cout << "  entSize: " << var->entSize() << std::endl;
+    std::cout << "  pubRW: " << var->isPublicRW() << std::endl;
 }
+
+extern "C" uintptr_t vl_get_var_by_name(uintptr_t scope, const char* name) {
+    const VerilatedScope* scopep = reinterpret_cast<const VerilatedScope*>(scope);
+    auto varp = scopep->varFind(name);
+    // if (varp != nullptr) {
+    //     print_var(varp);
+    // }
+    return reinterpret_cast<uintptr_t>(varp);
+}
+
+extern "C" const char* vl_get_var_name(uintptr_t handle) {
+    auto varp = reinterpret_cast<const VerilatedVar*>(handle);
+    return varp->name();
+}
+
+extern "C" uint8_t vl_get_var_type(uintptr_t var) {
+    auto varp = reinterpret_cast<const VerilatedVar*>(var);
+    return (uint8_t)varp->vltype();
+}
+
+// set values
+extern "C" void vl_set_var_u8(uintptr_t var, uint8_t val) {
+    auto varp = reinterpret_cast<const VerilatedVar*>(var);
+    auto datap = static_cast<uint8_t*>(varp->datap());
+    *datap = val;
+}
+extern "C" void vl_set_var_u16(uintptr_t var, uint16_t val) {
+    auto varp = reinterpret_cast<const VerilatedVar*>(var);
+    auto datap = static_cast<uint16_t*>(varp->datap());
+    *datap = val;
+}
+extern "C" void vl_set_var_u32(uintptr_t var, uint32_t val) {
+    auto varp = reinterpret_cast<const VerilatedVar*>(var);
+    auto datap = static_cast<uint32_t*>(varp->datap());
+    *datap = val;
+}
+extern "C" void vl_set_var_u64(uintptr_t var, uint64_t val) {
+    auto varp = reinterpret_cast<const VerilatedVar*>(var);
+    auto datap = static_cast<uint64_t*>(varp->datap());
+    *datap = val;
+}
+
+// get values
+extern "C" uint8_t vl_get_var_u8(uintptr_t var) {
+    auto varp = reinterpret_cast<const VerilatedVar*>(var);
+    auto datap = static_cast<uint8_t*>(varp->datap());
+    return *datap;
+}
+extern "C" uint16_t vl_get_var_u16(uintptr_t var) {
+    auto varp = reinterpret_cast<const VerilatedVar*>(var);
+    auto datap = static_cast<uint16_t*>(varp->datap());
+    return *datap;
+}
+extern "C" uint32_t vl_get_var_u32(uintptr_t var) {
+    auto varp = reinterpret_cast<const VerilatedVar*>(var);
+    auto datap = static_cast<uint32_t*>(varp->datap());
+    return *datap;
+}
+extern "C" uint64_t vl_get_var_u64(uintptr_t var) {
+    auto varp = reinterpret_cast<const VerilatedVar*>(var);
+    auto datap = static_cast<uint64_t*>(varp->datap());
+    return *datap;
+}
+
 
 /*
  * GEARS
