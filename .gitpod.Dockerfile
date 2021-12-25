@@ -5,7 +5,12 @@ RUN pacman -Syu --noconfirm --needed \
     git-lfs \
     sudo \
     curl \
-    base-devel
+    base-devel \
+    clang \
+    verilator \
+    python
+    
+RUN pacman -U --noconfirm https://archive.archlinux.org/packages/i/iverilog/iverilog-10.3-1-x86_64.pkg.tar.xz
 
 #### Taken From gitpod/workspace-base with slight modifications
 ### Gitpod user ###
@@ -34,3 +39,4 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rustup.sh
 RUN chmod +x rustup.sh
 RUN ./rustup.sh -y
 
+#
