@@ -3,10 +3,7 @@ image:
 
 tasks:
   - before: >
-      sudo apt update ;
-      sudo apt install iverilog ;
-      pip3 install cocotb ;
-      export COCOTB_REDUCED_LOG_FMT=1 ;
+      sudo pacman -Syyu ;
       git submodule update --init ;
       cargo install rstbrun
     init: >
