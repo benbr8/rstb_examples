@@ -3,7 +3,6 @@ FROM archlinux
 RUN pacman -Syu --noconfirm --needed \
     git \
     git-lfs \
-    docker \
     sudo \
     curl \
     base-devel
