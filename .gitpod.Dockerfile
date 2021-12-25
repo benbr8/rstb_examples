@@ -5,6 +5,7 @@ RUN pacman -Syu --noconfirm --needed \
     git-lfs \
     docker \
     sudo \
+    curl \
     base-devel
 
 #### Taken From gitpod/workspace-base with slight modifications
@@ -28,9 +29,5 @@ RUN (echo; echo "for i in \$(ls \$HOME/.bashrc.d/*); do source \$i; done"; echo)
 RUN sudo git lfs install --system
 ####
 
-# add yay for aur
-RUN sudo su gitpod -c cd /tmp && \
-    git clone https://aur.archlinux.org/yay-bin && \
-    cd yay-bin && \
-    makepkg -si --noconfirm
-RUN sudo su gitpod -c "yay -Syu --noconfirm neofetch"
+# rustup
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
