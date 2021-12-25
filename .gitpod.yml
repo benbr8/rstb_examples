@@ -3,7 +3,7 @@ image:
 
 tasks:
   - before: >
-      git submodule update --init ;
+      git clone --branch verilator https://github.com/benbr8/rstb.git ;
       cargo install rstbrun
     init: >
       cd /workspace/rstb_examples/test_axis_fifo &&
