@@ -3,7 +3,6 @@ image:
 
 tasks:
   - before: >
-      sudo pacman -Syyu ;
       git submodule update --init ;
       cargo install rstbrun
     init: >
