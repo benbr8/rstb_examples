@@ -15,7 +15,7 @@ RUN sed -i.bkp -e 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD:
 ENV HOME=/home/gitpod
 WORKDIR $HOME
 # custom Bash prompt
-RUN { echo && echo "PS1='\[\033[01;32m\]\u\[\033[00m\] \[\033[01;34m\]\w\[\033[00m\]\$(__git_ps1 \" (%s)\") $ '" ; } >> .bashrc
+# RUN { echo && echo "PS1='\[\033[01;32m\]\u\[\033[00m\] \[\033[01;34m\]\w\[\033[00m\]\$(__git_ps1 \" (%s)\") $ '" ; } >> .bashrc
 
 ### Gitpod user (2) ###
 USER gitpod
@@ -30,3 +30,7 @@ RUN sudo git lfs install --system
 
 # rustup
 # RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rustup.sh
+RUN chmod +x rustup.sh
+RUN ./rustup.sh -y
+
