@@ -27,5 +27,5 @@ vscode:
   extensions:
     - mshr-h.veriloghdl@1.0.6:RPslnvyzniF7C66mxHT+Hg==
     - vhdlwhiz.vhdl-by-vhdlwhiz@1.2.10:fJXQenGkzoZwUN/RddpuSw==
-    - matklad.rust-analyzer
+    - matklad.rust-analyzer@0.2.826
     - mhutchie.git-graph

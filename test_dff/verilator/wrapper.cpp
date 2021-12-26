@@ -100,21 +100,25 @@ extern "C" uint8_t vl_get_var_type(uintptr_t var) {
 extern "C" void vl_set_var_u8(uintptr_t var, uint8_t val) {
     auto varp = reinterpret_cast<const VerilatedVar*>(var);
     auto datap = static_cast<uint8_t*>(varp->datap());
+    std::cout << "setting" << std::endl;
     *datap = val;
 }
 extern "C" void vl_set_var_u16(uintptr_t var, uint16_t val) {
     auto varp = reinterpret_cast<const VerilatedVar*>(var);
     auto datap = static_cast<uint16_t*>(varp->datap());
+    std::cout << "setting" << std::endl;
     *datap = val;
 }
 extern "C" void vl_set_var_u32(uintptr_t var, uint32_t val) {
     auto varp = reinterpret_cast<const VerilatedVar*>(var);
     auto datap = static_cast<uint32_t*>(varp->datap());
+    std::cout << "setting" << std::endl;
     *datap = val;
 }
 extern "C" void vl_set_var_u64(uintptr_t var, uint64_t val) {
     auto varp = reinterpret_cast<const VerilatedVar*>(var);
     auto datap = static_cast<uint64_t*>(varp->datap());
+    std::cout << "setting" << std::endl;
     *datap = val;
 }
 
@@ -122,7 +126,9 @@ extern "C" void vl_set_var_u64(uintptr_t var, uint64_t val) {
 extern "C" uint8_t vl_get_var_u8(uintptr_t var) {
     auto varp = reinterpret_cast<const VerilatedVar*>(var);
     auto datap = static_cast<uint8_t*>(varp->datap());
-    return *datap;
+    uint8_t val = *datap;
+    std::cout << "vl_get_var_u8(" << var << ") = " << (int)val << std::endl;
+    return val;
 }
 extern "C" uint16_t vl_get_var_u16(uintptr_t var) {
     auto varp = reinterpret_cast<const VerilatedVar*>(var);

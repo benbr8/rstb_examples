@@ -3,26 +3,45 @@ mod vdff;
 use librstb::prelude::*;
 
 
-async fn test(dut: SimObject) -> RstbResult {
-    dbg!(dut);
-    dbg!(dut.name());
-    let a = dut.c("q");
-    dbg!(a);
-    // dbg!(a.name());
-    let b = dut.c("not_inst");
-    dbg!(b);
-    dbg!(b.name());
-
-    a.set(1);
-    dbg!(a.get());
-    a.set(0);
-    dbg!(a.get());
-    for j in 0..10 {
-        Trigger::timer_steps(1).await;
-        dbg!(SIM_IF.get_sim_time_steps());
+async fn clk_stim(clk: SimObject, ) -> RstbResult {
+    loop {
+        Trigger::timer_steps(5).await;
+        SIM_IF.log("Setting clk to 1");
+        clk.set(1);
+        SIM_IF.log(&format!("checking clk: {}", clk.get()));
+        Trigger::timer_steps(5).await;
+        SIM_IF.log("Setting clk to 0");
+        clk.set(0);
+        SIM_IF.log(&format!("checking clk: {}", clk.get()));
     }
-    
     Ok(Val::None)
 }
 
-librstb::run_with_verilator!(test);
+async fn test_dff(dut: SimObject) -> RstbResult {
+    // Fork clock input to run concurrently
+    let clk = dut.c("clk");
+    let d = dut.c("d");
+    let q = dut.c("q");
+
+    clk.set(1);
+    dbg!(clk.get());
+    Trigger::timer_steps(10).await;
+    dbg!(clk.get());
+
+    // Task::spawn(clk_stim(clk));
+
+    for j in 0..10 {
+        let din = utils::rand_int(2);
+        d.set(din);
+        dbg!(j);
+        clk.rising_edge().await;
+        if q.get() != din {
+            fail_test("Q output did not match D input");
+        }
+    }
+
+    pass_test("All transactions matched");
+    Ok(Val::None)
+}
+
+librstb::run_with_verilator!(test_dff);
