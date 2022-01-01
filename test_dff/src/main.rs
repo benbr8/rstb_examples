@@ -2,41 +2,33 @@ mod vdff;
 
 use librstb::prelude::*;
 
-
+#[allow(unreachable_code)]
 async fn clk_stim(clk: SimObject, ) -> RstbResult {
     loop {
         Trigger::timer_steps(5).await;
-        SIM_IF.log("Setting clk to 1");
         clk.set(1);
-        SIM_IF.log(&format!("checking clk: {}", clk.get()));
         Trigger::timer_steps(5).await;
-        SIM_IF.log("Setting clk to 0");
         clk.set(0);
-        SIM_IF.log(&format!("checking clk: {}", clk.get()));
     }
     Ok(Val::None)
 }
 
 async fn test_dff(dut: SimObject) -> RstbResult {
-    // Fork clock input to run concurrently
     let clk = dut.c("clk");
     let d = dut.c("d");
     let q = dut.c("q");
 
-    clk.set(1);
-    dbg!(clk.get());
-    Trigger::timer_steps(10).await;
-    dbg!(clk.get());
+    // Fork clock input to run concurrently
+    Task::spawn(clk_stim(clk));
 
-    // Task::spawn(clk_stim(clk));
+    dut.c("rstn").set(1);
 
-    for j in 0..10 {
+    for _ in 0..1_000_000 {
         let din = utils::rand_int(2);
         d.set(din);
-        dbg!(j);
         clk.rising_edge().await;
         if q.get() != din {
-            fail_test("Q output did not match D input");
+            fail_test("Q output did not match D input")
         }
     }
 

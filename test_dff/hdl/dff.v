@@ -7,16 +7,13 @@ module dff (
    output reg q /* verilator public */
 );
 
-   wire notd;
-
-   n not_inst (.i(d), .o(notd));
 
    always @ (posedge clk)
    begin
       if (!rstn)
          q <= 0;
       else
-         q <= notd;
+         q <= d;
    end
 
 endmodule

@@ -11,10 +11,32 @@ Dut *dut = nullptr;
  * SCOPES
  */
 
+
+extern "C" void vl_print_scope(const char* name) {
+    const VerilatedScope* scopep = Verilated::threadContextp()->scopeFind(name);
+    const VerilatedVarNameMap* varsp = scopep->varsp();
+    std::cout << "Vars in " << name << std::endl;
+    for (const auto& it : *varsp) {
+        std::cout << it.first << std::endl;
+    }
+}
+
+extern "C" void vl_print_scopes() {
+    const VerilatedScopeNameMap* mapp = Verilated::threadContextp()->scopeNameMap();
+
+    std::cout << "Scopes:" << std::endl;
+    for (const auto& it : *mapp) {
+        std::cout << "Scope: " << it.first << std::endl;
+        for (const auto& it : *it.second->varsp()) {
+            std::cout << "Var: " << it.first << std::endl;
+        }
+    }
+}
+
 const VerilatedScope* get_root_scope() {
     const VerilatedScopeNameMap* mapp = Verilated::threadContextp()->scopeNameMap();
     const VerilatedScope* ret = nullptr;
-    // 2nd scope is top-level module scope (first is 'TOP.TOP')
+    // 2nd scope is top-level module scope (first is 'TOP.TOP' which does not have any children)
     int i = 0;
     for (const auto& it : *mapp) {
         if (i++ == 1) {
@@ -43,26 +65,6 @@ extern "C" const char* vl_get_scope_name(uintptr_t handle) {
     return scopep->name();
 }
 
-extern "C" void vl_print_scope(const char* name) {
-    const VerilatedScope* scopep = Verilated::threadContextp()->scopeFind(name);
-    const VerilatedVarNameMap* varsp = scopep->varsp();
-    std::cout << "Vars in " << name << std::endl;
-    for (const auto& it : *varsp) {
-        std::cout << it.first << std::endl;
-    }
-}
-
-extern "C" void vl_print_scopes() {
-    const VerilatedScopeNameMap* mapp = Verilated::threadContextp()->scopeNameMap();
-
-    std::cout << "Scopes:" << std::endl;
-    for (const auto& it : *mapp) {
-        std::cout << "Scope: " << it.first << std::endl;
-        for (const auto& it : *it.second->varsp()) {
-            std::cout << "Var: " << it.first << std::endl;
-        }
-    }
-}
 
 /*
  * VARS
@@ -100,25 +102,21 @@ extern "C" uint8_t vl_get_var_type(uintptr_t var) {
 extern "C" void vl_set_var_u8(uintptr_t var, uint8_t val) {
     auto varp = reinterpret_cast<const VerilatedVar*>(var);
     auto datap = static_cast<uint8_t*>(varp->datap());
-    std::cout << "setting" << std::endl;
     *datap = val;
 }
 extern "C" void vl_set_var_u16(uintptr_t var, uint16_t val) {
     auto varp = reinterpret_cast<const VerilatedVar*>(var);
     auto datap = static_cast<uint16_t*>(varp->datap());
-    std::cout << "setting" << std::endl;
     *datap = val;
 }
 extern "C" void vl_set_var_u32(uintptr_t var, uint32_t val) {
     auto varp = reinterpret_cast<const VerilatedVar*>(var);
     auto datap = static_cast<uint32_t*>(varp->datap());
-    std::cout << "setting" << std::endl;
     *datap = val;
 }
 extern "C" void vl_set_var_u64(uintptr_t var, uint64_t val) {
     auto varp = reinterpret_cast<const VerilatedVar*>(var);
     auto datap = static_cast<uint64_t*>(varp->datap());
-    std::cout << "setting" << std::endl;
     *datap = val;
 }
 
@@ -127,7 +125,6 @@ extern "C" uint8_t vl_get_var_u8(uintptr_t var) {
     auto varp = reinterpret_cast<const VerilatedVar*>(var);
     auto datap = static_cast<uint8_t*>(varp->datap());
     uint8_t val = *datap;
-    std::cout << "vl_get_var_u8(" << var << ") = " << (int)val << std::endl;
     return val;
 }
 extern "C" uint16_t vl_get_var_u16(uintptr_t var) {

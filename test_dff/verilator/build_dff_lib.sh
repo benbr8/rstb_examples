@@ -1,10 +1,8 @@
 if [[ -z "${VL_PATH}" ]]; then
-  VL_PATH_INT="/usr/local/share/verilator"
-else
-  MY_SCRIPT_VARIABLE="${VL_PATH}"
+  VL_PATH="/usr/local/share/verilator"
 fi
 
-verilator -Mdir vl_obj --prefix Dut -cc ../hdl/dff.v ../hdl/not.v
+verilator -Mdir vl_obj --prefix Dut -cc ../hdl/dff.v
 clang++ -DVL_DEBUG -c -o verilated.o -I vl_obj -I${VL_PATH}/include/vltstd -I${VL_PATH}/include/ ${VL_PATH}/include/verilated.cpp
 clang++ -DVL_DEBUG -c -o verilated_vpi.o -I vl_obj -I${VL_PATH}/include/vltstd -I${VL_PATH}/include/ ${VL_PATH}/include/verilated_vpi.cpp
 # clang++ -flto -DVL_DEBUG -c -o Vdff.o -I dff_obj -I${VL_PATH}/include/vltstd -I${VL_PATH}/include/ dff_obj/Vdff.cpp
