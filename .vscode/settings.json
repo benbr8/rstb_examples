@@ -5,6 +5,7 @@
         "test_axis_fifo/Cargo.toml",
         "test_concurrent_assertions/Cargo.toml",
         "rstb/Cargo.toml",
+        "rstbrun/Cargo.toml",
     ],
     "files.associations": {
         "typeinfo": "cpp",

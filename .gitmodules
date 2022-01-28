@@ -1,3 +1,6 @@
 [submodule "rstb"]
 	path = rstb
 	url = git@github.com:benbr8/rstb.git
+[submodule "rstbrun"]
+	path = rstbrun
+	url = ./rstbrun/
